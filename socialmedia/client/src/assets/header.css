@@ -1,17 +1,10 @@
 .App-header {
-    /* background-color: #282c34;
-    min-height: 5vh;
-    min-width: 100vh;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    font-size: calc(10px + 2vmin);
-    color: white; */
-    font-family: Arial;
-    padding: 20px;
-      text-align: center;
-      background: #1abc9c;
-      color: white;
-  }
+  font-family: Arial;
+  font-size: 15px;
+  padding: 20px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  height: 10vh;
+  transition: height 0.3s ease-in-out;
+}

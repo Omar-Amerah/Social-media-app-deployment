@@ -1,24 +1,28 @@
-
 .navbar {
-    /* padding: 10px; */
-    font-family: Arial;
-    display: flex;
-    background-color: #414141;
-    
-  }
+  font-family: Arial;
+  display: flex;
+  background-color: #414141;
+}
+
+.abutton {
+  text-align: center;
+  padding: 20px;
+  font-size: 15px;
+  border: none;
+  background-color: transparent;
+  color: aliceblue;
+  outline: none;
+  transition: 0.5s;
   
-  .abutton{
-    text-align: center;
-    padding: 20px;
-    font-size: 15px;
-    border: none;
-    background-color: transparent;
-    color: aliceblue;
-    outline: none;
-    transition: 0.5s;
-  }
-  .abutton:hover{
-    background-color: #232323;
-    transition: background-color 1s;
-  }
-  
+}
+
+.abutton:hover {
+  background-color: #232323;
+  transition: background-color 1s;
+  cursor: pointer; /* change cursor on hover */
+}
+
+.active {
+  background-color: white; /* add background color to active button */
+  color: #232323;
+}

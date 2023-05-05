@@ -5,6 +5,9 @@
 }
 
 body{
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 100%), url('https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE5ddzI?ver=5937');
+  background-repeat: repeat;
+  background-size: auto, cover;
   margin: 0;
 }
 
