@@ -3,8 +3,8 @@
   font-size: 15px;
   padding: 20px;
   text-align: center;
-  background: #1abc9c;
-  color: white;
+  background-color:  #333333;
+  color: #FFFFFF;
   height: 10vh;
   transition: height 0.3s ease-in-out;
 }
