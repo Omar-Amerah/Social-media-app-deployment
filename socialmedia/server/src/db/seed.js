@@ -5,9 +5,7 @@ async function seedUsers() {
     return await Post.bulkCreate([
         {
             title: "Hello",
-            content: "This is a test post",
-            likes: 20,
-            postdate: "Tuesday 20/05"
+            content: "This is a test post"
         }
     ]);
 }

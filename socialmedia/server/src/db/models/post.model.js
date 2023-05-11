@@ -15,6 +15,7 @@ Post.init(
         likes: {
             type: DataTypes.INTEGER,
             defaultValue: false,
+            defaultValue: 0
         },
         postdate: {
             type: DataTypes.STRING,
