@@ -7,14 +7,13 @@ Post.init(
     {
         title: {
             type: DataTypes.STRING,
-            allowNull: false,
+            //allowNull: false,
         },
         content: {
             type: DataTypes.STRING,
         },
         likes: {
             type: DataTypes.INTEGER,
-            defaultValue: false,
             defaultValue: 0
         },
         postdate: {
