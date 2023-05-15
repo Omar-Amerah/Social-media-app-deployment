@@ -73,52 +73,52 @@ async function seedUsers() {
     return await User.bulkCreate([
     { 
         username: "John", 
-        password: "pass123", 
+        password: "Fluffy78$", 
         email: "john@example.com" 
     },
     { 
         username: "Charlie", 
-        password: "pass456", 
+        password: "Buttercup42#", 
         email: "charlie@example.com" 
     },
     { 
         username: "Sam", 
-        password: "pass789", 
+        password: "Hiking19@", 
         email: "sam@example.com" 
     },
     {
         username: "Chinelo",
-        password: "p@ssw0rd",
+        password: "Sunflower27&",
         email: "chinelo@example.com"
     },
     {
         username: "Juan",
-        password: "p@ssw0rd",
+        password: "Starlight69#",
         email: "juan@example.com"
       },
       {
         username: "Yoko",
-        password: "p@ssw0rd",
+        password: "Pineapple12%",
         email: "yoko@example.com"
       },
       {
         username: "Sophie",
-        password: "p@ssw0rd",
+        password: "Nightowl55#",
         email: "sophie@example.com"
       },
       {
         username: "Aaliyah",
-        password: "p@ssw0rd",
+        password: "Coffeebean16*",
         email: "aaliyah@example.com"
       },
       {
         username: "Tina",
-        password: "p@ssw0rd",
+        password: "Beachbum23@",
         email: "tina@example.com"
       },
       {
         username: "Sarah",
-        password: "p@ssw0rd",
+        password: "Dragonfly99^",
         email: "sarah@example.com"
       }
       

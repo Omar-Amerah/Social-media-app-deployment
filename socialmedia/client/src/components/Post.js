@@ -16,10 +16,12 @@ export default function Posts() {
   }, []);
 
   function handlePostClick(post) {
+    document.body.classList.add("lock-scrolling");
     setSelectedPost(post);
   }
 
   function handleCloseClick() {
+    document.body.classList.remove("lock-scrolling");
     setSelectedPost(null);
   }
 

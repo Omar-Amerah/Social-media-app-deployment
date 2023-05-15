@@ -12,24 +12,22 @@
   background-color: transparent;
   color: aliceblue;
   outline: none;
-  transition: 0.5s;
   
 }
 
 .abutton:hover {
   background-color: #232323;
-  transition: background-color 1s;
   color: aliceblue;
-  cursor: pointer; /* change cursor on hover */
+  cursor: pointer;
 }
 
 .active {
-  background-color: #F5F5F5; /* add background color to active button */
+  background-color: #F5F5F5; 
   color: #232323;
 }
 
 .active:hover {
-  background-color: #F5F5F5; /* add background color to active button */
+  background-color: #F5F5F5;
   color: #232323;
 }
 
