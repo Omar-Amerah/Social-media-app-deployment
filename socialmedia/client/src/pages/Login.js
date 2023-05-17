@@ -27,15 +27,16 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = LoginUser(username, password);
-    if(data)
-    {
-        console.log((document.cookie).id);
-        navigate("/");
+    const data = await LoginUser(username, password);
+    console.log(data);
+    if (data) {
+      console.log(console.log(decodeURIComponent(document.cookie)));
+      //navigate("/");
     }
   };
+  
 
   return (
     <>

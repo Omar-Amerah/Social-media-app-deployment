@@ -8,7 +8,7 @@ export default function Discover() {
         <>
             <Header />
             <Navbar />
-                <Post /> 
+            <Post /> 
         </>
     );
 }

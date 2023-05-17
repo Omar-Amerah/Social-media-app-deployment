@@ -41,7 +41,7 @@ router.get("/user/:id", async (req, res) => {
   
     try {
       const user = await User.findOne({ where: { username } });
-      console.log(user)
+      console.log(user);
       if (!user) {
         return res.status(422).json({
           message: "Incorrect username or password",
@@ -49,13 +49,17 @@ router.get("/user/:id", async (req, res) => {
       }
   
       const match = await bcrypt.compare(password, user.password);
-      console.log(match)
+      console.log(match);
       if (!match) {
         return res.status(422).json({
           message: "Incorrect username or password",
         });
       }
-      res.cookie('user', { id: user.id, name: user.name });
+      res.clearCookie('user')
+      const userCookie = { id: user.id, name: user.name };
+      const userCookieString = JSON.stringify(userCookie);
+      res.cookie("user", userCookieString);
+      
       res.json({
         message: "Successfully logged in",
       });

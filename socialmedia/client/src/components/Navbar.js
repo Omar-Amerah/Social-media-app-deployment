@@ -27,7 +27,7 @@ export default function Header() {
       <Link
         to="/"
         style={{ display: "block", height: "100%" }}
-        onClick={() => console.log(document.cookie)}
+        onClick={() => setActiveButton("Home")}
       >
         <button
           className={`abutton ${activeButton === "Home" ? "active" : ""}`}
