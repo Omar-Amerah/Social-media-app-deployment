@@ -17,7 +17,7 @@ export default async function LoginUser(username, password) {
       } else {
         if (data.errors !== undefined) {
           alert(data.errors[0].msg);
-          return false;
+          return (data.message).toString();
         }
         alert(data.message);
       }

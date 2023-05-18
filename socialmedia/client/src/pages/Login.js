@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/login.css";
-import LoginUser from "../components/utils/users/LoginUser.js"
+import LoginUser from "../components/utils/users/LoginUser.js";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -32,16 +32,20 @@ export default function Login() {
     const data = await LoginUser(username, password);
     console.log(data);
     if (data) {
-      console.log(console.log(decodeURIComponent(document.cookie)));
-      //navigate("/");
+      console.log(decodeURIComponent(document.cookie));
+      navigate("/");
     }
   };
-  
+
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
 
   return (
     <>
       <div className="loginBox">
         <h1 className="title">Social Media</h1>
+        <h2></h2>
         <input
           type="text"
           className="input"
@@ -50,7 +54,7 @@ export default function Login() {
           onChange={handleUsernameChange}
         ></input>
         <input
-          type="text"
+          type="password"
           className="input"
           placeholder="Password"
           value={password}
@@ -58,6 +62,9 @@ export default function Login() {
         ></input>
         <button className="button" disabled={!formValid} onClick={handleSubmit}>
           Login
+        </button>
+        <button className="button" onClick={handleRegisterClick}>
+          Register
         </button>
       </div>
     </>
