@@ -3,6 +3,7 @@ import "../assets/post.css";
 import GetAllPosts from "./utils/posts/GetAllPosts";
 import GetUserPosts from "./utils/posts/GetUserPosts";
 import DeletePost from "./utils/posts/DeletePost";
+import GetOneUser from "./utils/users/GetOneUser";
 
 function cookies() {
   const string = decodeURIComponent(document.cookie);
@@ -19,7 +20,16 @@ function cookies() {
 export default function Posts({ type }) {
   const [posts, setPosts] = React.useState([]);
   const [selectedPost, setSelectedPost] = React.useState(null);
+  const [Username, setUsername] = React.useState(); 
 
+
+  async function getUsername(UserId) {
+    const user = await GetOneUser(UserId);
+    const username = user.username;
+    setUsername(username);
+    return null;
+  }
+  
   React.useEffect(() => {
     async function fetchData() {
       let response;
@@ -64,17 +74,21 @@ export default function Posts({ type }) {
     console.log("Follow clicked");
   }
 
+
+  
+
   if (!posts || posts.length === 0) {
     // Render an alternative UI or display a message when no posts are found
     return null;
   }
+
 
   return (
     <div>
       {selectedPost && (
         <div className={`post selected`}>
           <h2 className="title">{selectedPost.title}</h2>
-          {type === "Discover" && <p className="creator">Creator: {selectedPost.creator}</p>}
+          {type === "Discover" && <p className="creator">Creator: {selectedPost.UserId}</p>}
           <p className="content">{selectedPost.content}</p>
           <p className="date">Date: {selectedPost.postdate}</p>
           {type === "Discover" && (
@@ -112,7 +126,7 @@ export default function Posts({ type }) {
               onClick={() => handlePostClick(post)}
             >
               <h2 className="title">{post.title}</h2>
-              {type === "Discover" && <p className="creator">Creator: {post.creator}</p>}
+              {type === "Discover" && <p className="creator">Creator: {post.UserId}</p>}
               <p className="content">{post.content}</p>
               <p className="date">{post.postdate}</p>
               {type === "Discover" && (

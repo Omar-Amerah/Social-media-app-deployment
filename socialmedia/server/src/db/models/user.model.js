@@ -23,7 +23,7 @@ User.init(
             },
         },
         followed: {
-            type: DataTypes.ARRAY,
+            type: DataTypes.ARRAY(DataTypes.STRING),
         },
     },
     {
