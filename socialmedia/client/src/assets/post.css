@@ -15,7 +15,7 @@
   border-radius: 20px;
   background-color: #c0d2ce;
   color: #333;
-  height: 30vh;
+  height: 40vh;
   font-family: Arial;
   margin: 30px;
   margin-left: 15vw;
@@ -88,6 +88,11 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s; 
+}
+
+.close:hover{
+  background-color: #4e9b51;
 }
 
 @media only screen and (max-width: 768px) {
@@ -101,4 +106,67 @@
     width: 90vw;
     height: 80vh;
   }
+}
+
+.date {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #686767;
+  text-align: left;
+  opacity: 0; /* Set initial opacity to 0 */
+  transition: opacity 0.3s ease-in-out; /* Add transition property */
+}
+
+.post:hover .date {
+  opacity: 1; /* Change opacity to 1 on hover */
+}
+
+.delete {
+  margin-top: 16px;
+  padding: 8px;
+  background-color: #f44336; /* Red background color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transition effect for background color */
+}
+
+.delete:hover {
+  background-color: #d32f2f; /* Darker red background color on hover */
+}
+
+.like {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #3c61b0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.like:hover {
+  background-color: #38578a;
+}
+
+/* Styles for follow button */
+.follow {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.follow:hover {
+  background-color: #1665c1;
 }

@@ -7,3 +7,10 @@ body{
 .lock-scrolling{
   overflow: hidden;
 }
+
+
+
+.overlay-active{
+  pointer-events: none;
+  overflow: hidden;
+}

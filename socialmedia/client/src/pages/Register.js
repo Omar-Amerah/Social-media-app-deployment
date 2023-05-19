@@ -62,7 +62,7 @@ export default function Register() {
           onChange={handleUsernameChange}
         ></input>
         <input
-          type="text"
+          type="password"
           className="input"
           placeholder="Password"
           value={password}

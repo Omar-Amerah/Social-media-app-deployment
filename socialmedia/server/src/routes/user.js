@@ -15,6 +15,14 @@ router.get("/users", async (_, resp) => {
     });
 });
 
+router.get("/clearcookies", (req, res) => {
+  res.clearCookie("user");
+  // Add more clearCookie statements for each cookie you want to clear
+  res.json({
+    message: "Cookies cleared successfully",
+  });
+});
+
 router.get("/user/:id", async (req, res) => {
     try {
       const user = await User.findByPk(req.params.id);
@@ -55,7 +63,7 @@ router.get("/user/:id", async (req, res) => {
           message: "Incorrect username or password",
         });
       }
-      res.clearCookie('user')
+      res.clearCookie("user")
       const userCookie = { id: user.id, name: user.name };
       const userCookieString = JSON.stringify(userCookie);
       res.cookie("user", userCookieString);
@@ -100,29 +108,29 @@ router.post("/user", async (req, res) => {
 
 
 
-//   router.put("/posts/:postId", async (req, res) => {
-//     try {
-//       const post = await Post.findByPk(req.params.postId);
-//       if (!post) {
-//         return res.status(404).json({
-//           message: "Post not found",
-//         });
-//       }
-//       post.title = req.body.title;
-//       post.content = req.body.content;
-//       post.likes = req.body.likes;
-//       await post.save();
-//       return res.json({
-//         message: "Post updated successfully",
-//         result: post,
-//       });
-//     } catch (error) {
-//       console.error(error);
-//       return res.status(500).json({
-//         message: "Failed to update post",
-//       });
-//     }
-//   });
+  router.put("/posts/:postId", async (req, res) => {
+    try {
+      const post = await Post.findByPk(req.params.postId);
+      if (!post) {
+        return res.status(404).json({
+          message: "Post not found",
+        });
+      }
+      post.title = req.body.title;
+      post.content = req.body.content;
+      post.likes = req.body.likes;
+      await post.save();
+      return res.json({
+        message: "Post updated successfully",
+        result: post,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        message: "Failed to update post",
+      });
+    }
+  });
 
   router.delete("/users", async (_, resp) => {
     await User.destroy({ where: {} });

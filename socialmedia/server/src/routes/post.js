@@ -12,9 +12,32 @@ router.get("/posts", async (_, resp) => {
     });
 });
 
+
+
 router.get("/posts/:id", async (req, res) => {
     try {
       const post = await Post.findByPk(req.params.id);
+      if (!post) {
+        res.status(404).json({
+          message: "Post not found",
+        });
+      } else {
+        res.json({
+          message: "Successfully retrieved post",
+          result: post,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        message: "Error retrieving post",
+      });
+    }
+  });
+
+  router.get("/posts/user/:id", async (req, res) => {
+    try {
+      const post = await Post.findAll({where: { UserId: req.params.id } });
       if (!post) {
         res.status(404).json({
           message: "Post not found",
@@ -36,9 +59,10 @@ router.get("/posts/:id", async (req, res) => {
 
 router.post("/posts", async (req, res) => {
     try {
-      const { title, content } = req.body;
+      const { title, content, id } = req.body;
+      console.log(id)
       const postdate = moment().format('dddd, D/M/YYYY'); // format postdate as 'Weekday, day/month/year'
-      const post = await Post.create({ title, content, postdate });
+      const post = await Post.create({ title, content, UserId: id, postdate  });
       res.status(201).json({
         message: "Successfully created post",
         result: post,
@@ -80,6 +104,13 @@ router.post("/posts", async (req, res) => {
     resp.json({
         message: "Successfully deleted all posts",
     });
+});
+
+router.delete("/posts/:id", async (req, res) => {
+  await Post.destroy({ where: {id: req.params.id} });
+  res.json({
+      message: "Successfully deleted all posts",
+  });
 });
 
 

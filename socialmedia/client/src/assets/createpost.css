@@ -1,0 +1,87 @@
+.create-post-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 2; 
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  box-sizing: border-box;
+  z-index: 9999;
+  pointer-events: all;
+}
+
+.create-post-box h2 {
+  margin-top: 0;
+}
+
+.create-post-box input,
+.create-post-box textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Rest of the CSS remains the same */
+
+.create-post-box .close-button,
+.create-post-box .create-button {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-post-box .close-button:hover,
+.create-post-box .create-button:hover {
+  background-color: #0056b3;
+}
+
+.create-post-box .create-button:hover {
+  background-color: #1c7430;
+}
+
+.create-post-box textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: none; /* Disable resizing */
+}
+
+.create-post-box .create-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-post-box .create-button:disabled {
+  background-color: #999999;
+  cursor: not-allowed;
+}
+
+/* CSS to make the page unclickable */
+body.create-post-open {
+  overflow: hidden;
+}

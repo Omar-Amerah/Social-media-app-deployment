@@ -22,6 +22,9 @@ User.init(
                 isEmail: true,
             },
         },
+        followed: {
+            type: DataTypes.ARRAY,
+        },
     },
     {
         sequelize: db,

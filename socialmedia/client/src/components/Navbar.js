@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import "../assets/navbar.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import CreatePostBox from "./Createpost";
+import ClearCookies from "./utils/users/ClearCookies";
 
-export default function Header() {
+export default function Navbar() {
   const [activeButton, setActiveButton] = useState("");
+  const [showCreatePost, setShowCreatePost] = useState(false);
+  const navigate = useNavigate();
+
   const location = useLocation();
 
   React.useEffect(() => {
@@ -21,6 +26,26 @@ export default function Header() {
         setActiveButton("");
     }
   }, [location]);
+
+  const handleCreatePostClick = () => {
+    setShowCreatePost(true);
+    document.body.classList.add("overlay-active");
+  };
+
+  const handleCloseCreatePost = () => {
+    setShowCreatePost(false);
+    document.body.classList.remove("overlay-active");
+  };
+
+  const handleCreatePost = (title, content) => {
+    // Handle the creation of the post (e.g., make an API call)
+    console.log("Creating post:", title, content);
+  };
+
+  const handleLogout = () => {
+    ClearCookies();
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
@@ -62,12 +87,27 @@ export default function Header() {
         </button>
       </Link>
 
-      <button id="createpost" className="abutton">
+      <button
+        id="createpost"
+        className="abutton"
+        onClick={handleCreatePostClick}
+      >
         Create Post
       </button>
-      <button id="login" className="abutton">
-        Login
+      <button id="login" className="abutton" onClick={handleLogout}>
+        Log Out
       </button>
+
+      {showCreatePost && (
+        <>
+          
+          <CreatePostBox
+            onClose={handleCloseCreatePost}
+            onCreate={handleCreatePost}
+          />
+          <div className="overlay" />
+        </>
+      )}
     </nav>
   );
 }

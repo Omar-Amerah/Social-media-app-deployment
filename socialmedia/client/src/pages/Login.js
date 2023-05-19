@@ -32,7 +32,7 @@ export default function Login() {
     const data = await LoginUser(username, password);
     console.log(data);
     if (data) {
-      console.log(decodeURIComponent(document.cookie));
+      console.log((typeof decodeURIComponent(document.cookie)));
       navigate("/");
     }
   };
