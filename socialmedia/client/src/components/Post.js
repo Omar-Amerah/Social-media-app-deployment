@@ -47,10 +47,8 @@ export default function Posts({ type }) {
         setFollowedUsers(followedUsers);
       } else {
         response = await GetUserPosts(cookies());
-        // Convert the single post object into an array
         response = response;
       }
-      //console.log("Response:", response);
       setPosts(response);
     }
     fetchData();

@@ -11,7 +11,7 @@ export default async function LikeUser(id, postid) {
   
       const data = await response.json();
       if (response.ok) {
-        alert("Followed");
+        //alert("Followed");
         return true;
       } else {
         if (data.errors !== undefined) {

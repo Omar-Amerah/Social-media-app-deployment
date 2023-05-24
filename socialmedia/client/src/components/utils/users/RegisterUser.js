@@ -12,7 +12,7 @@ export default async function RegisterUser(username, password, email) {
   
       const data = await response.json();
       if (response.ok) {
-        alert("Account created");
+        //alert("Account created");
         return true;
       } else {
         if (data.errors !== undefined) {

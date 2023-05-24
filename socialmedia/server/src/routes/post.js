@@ -24,7 +24,6 @@ router.get("/posts/followed/:id", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const followedUsers = user.followed;
-    //console.log("Followed users:", followedUsers);
 
     const posts = await Post.findAll({
       where: {UserId: followedUsers,}});

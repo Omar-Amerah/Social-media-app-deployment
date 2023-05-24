@@ -12,7 +12,7 @@ export default async function CreatePost(title, content, id) {
   
       const data = await response.json();
       if (response.ok) {
-        alert("Post created");
+        //alert("Post created");
         return true;
       } else {
         if (data.errors !== undefined) {

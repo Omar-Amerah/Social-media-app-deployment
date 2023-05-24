@@ -12,7 +12,7 @@ export default async function LoginUser(username, password) {
   
       const data = await response.json();
       if (response.ok) {
-        alert("Logged in");
+        //alert("Logged in");
         return true;
       } else {
         if (data.errors !== undefined) {
