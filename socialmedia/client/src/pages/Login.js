@@ -30,9 +30,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await LoginUser(username, password);
-    console.log(data);
     if (data) {
-      console.log((typeof decodeURIComponent(document.cookie)));
       navigate("/");
     }
   };

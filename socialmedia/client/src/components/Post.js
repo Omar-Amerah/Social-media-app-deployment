@@ -4,6 +4,9 @@ import GetAllPosts from "./utils/posts/GetAllPosts";
 import GetUserPosts from "./utils/posts/GetUserPosts";
 import DeletePost from "./utils/posts/DeletePost";
 import GetOneUser from "./utils/users/GetOneUser";
+import FollowUser from "./utils/users/FollowUser";
+import FollowedPosts from "./utils/posts/FollowedPosts";
+import LikeUser from "./utils/users/LikePost";
 
 function cookies() {
   const string = decodeURIComponent(document.cookie);
@@ -20,8 +23,8 @@ function cookies() {
 export default function Posts({ type }) {
   const [posts, setPosts] = React.useState([]);
   const [selectedPost, setSelectedPost] = React.useState(null);
-  const [Username, setUsername] = React.useState(); 
-
+  const [username, setUsername] = React.useState("");
+  const [followedUsers, setFollowedUsers] = React.useState([]);
 
   async function getUsername(UserId) {
     const user = await GetOneUser(UserId);
@@ -29,18 +32,25 @@ export default function Posts({ type }) {
     setUsername(username);
     return null;
   }
-  
+
   React.useEffect(() => {
     async function fetchData() {
       let response;
       if (type === "Discover") {
         response = await GetAllPosts();
+        const followedUsers = (await GetOneUser(cookies())).followed;
+        setFollowedUsers(followedUsers);
+      } else if (type === "Home") {
+        const userId = cookies(); // Retrieve the user ID from cookies
+        response = await FollowedPosts(userId);
+        const followedUsers = (await GetOneUser(cookies())).followed;
+        setFollowedUsers(followedUsers);
       } else {
         response = await GetUserPosts(cookies());
         // Convert the single post object into an array
         response = response;
       }
-      console.log("Response:", response);
+      //console.log("Response:", response);
       setPosts(response);
     }
     fetchData();
@@ -52,6 +62,7 @@ export default function Posts({ type }) {
   }
 
   async function handleDeleteClick(event, id) {
+    document.body.classList.remove("lock-scrolling");
     event.stopPropagation(); // Stop event propagation
     await DeletePost(id);
     window.location.reload();
@@ -62,46 +73,54 @@ export default function Posts({ type }) {
     setSelectedPost(null);
   }
 
-  function handleLikeClick(event) {
-    event.stopPropagation(); // Stop event propagation
-    // Handle like functionality here
-    console.log("Like clicked");
+  async function handleLikeClick(event, UserId) {
+    event.stopPropagation(); 
+    await LikeUser(UserId, cookies())
   }
 
-  function handleFollowClick(event) {
-    event.stopPropagation(); // Stop event propagation
-    // Handle follow functionality here
-    console.log("Follow clicked");
+  async function handleFollowClick(event, UserId) {
+    event.stopPropagation();
+    if (followedUsers.includes(UserId)) {
+      // Unfollow the user
+      await FollowUser(UserId, cookies());
+    } else {
+      // Follow the user
+      await FollowUser(UserId, cookies());
+    }
+    // Update the followed users array
+    const updatedFollowedUsers = (await GetOneUser(cookies())).followed;
+    setFollowedUsers(updatedFollowedUsers);
   }
-
-
-  
 
   if (!posts || posts.length === 0) {
     // Render an alternative UI or display a message when no posts are found
     return null;
   }
 
-
   return (
     <div>
       {selectedPost && (
         <div className={`post selected`}>
           <h2 className="title">{selectedPost.title}</h2>
-          {type === "Discover" && <p className="creator">Creator: {selectedPost.UserId}</p>}
+          {(type === "Discover" || type === "Home") && (
+            <p className="creator">Creator: {selectedPost.UserId}</p>
+          )}
           <p className="content">{selectedPost.content}</p>
           <p className="date">Date: {selectedPost.postdate}</p>
-          {type === "Discover" && (
+          {(type === "Discover" || type === "Home") && (
             <div className="actions">
-              <button className="like" onClick={handleLikeClick}>
+              <button className="like" onClick={(event) => handleLikeClick(event, selectedPost.UserId)}>
                 Like
               </button>
-              <button className="follow" onClick={handleFollowClick}>
-                Follow
+              <button
+                className={`follow ${followedUsers.includes(selectedPost.UserId) ? "unfollow" : ""}`}
+                onClick={(event) => handleFollowClick(event, selectedPost.UserId)}
+              >
+                {followedUsers.includes(selectedPost.UserId) ? "Unfollow" : "Follow"}
               </button>
             </div>
           )}
-          {type !== "Discover" && (
+          {type !== "Discover" && type !== "Home" && (
             <button
               className="delete"
               onClick={(event) => handleDeleteClick(event, selectedPost.id)}
@@ -126,20 +145,25 @@ export default function Posts({ type }) {
               onClick={() => handlePostClick(post)}
             >
               <h2 className="title">{post.title}</h2>
-              {type === "Discover" && <p className="creator">Creator: {post.UserId}</p>}
+              {(type === "Discover" || type === "Home") && (
+                <p className="creator">Creator: {post.UserId}</p>
+              )}
               <p className="content">{post.content}</p>
               <p className="date">{post.postdate}</p>
-              {type === "Discover" && (
+              {(type === "Discover" || type === "Home") && (
                 <div className="actions">
                   <button className="like" onClick={handleLikeClick}>
                     Like
                   </button>
-                  <button className="follow" onClick={handleFollowClick}>
-                    Follow
+                  <button
+                    className={`follow ${followedUsers.includes(post.UserId) ? "unfollow" : ""}`}
+                    onClick={(event) => handleFollowClick(event, post.UserId)}
+                  >
+                    {followedUsers.includes(post.UserId) ? "Unfollow" : "Follow"}
                   </button>
                 </div>
               )}
-              {type !== "Discover" && (
+              {type !== "Discover" && type !== "Home" && (
                 <button
                   className="delete"
                   onClick={(event) => handleDeleteClick(event, post.id)}

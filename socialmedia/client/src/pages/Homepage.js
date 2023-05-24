@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
+import Post from "../components/Post";
 import { useNavigate } from "react-router-dom";
 
 function cookies() {
@@ -29,6 +30,7 @@ export default function Home() {
     <>
       <Header />
       <Navbar />
+      <Post type="Home" />
     </>
   );
 }

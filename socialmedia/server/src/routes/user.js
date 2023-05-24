@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const express = require("express");
-const { User } = require("../db/models");
+const { User, Post } = require("../db/models");
 const moment = require('moment');
 const bcrypt = require('bcrypt');
 
@@ -44,12 +44,13 @@ router.get("/user/:id", async (req, res) => {
     }
   });
 
+  
+
   router.post("/login", async (req, res) => {
     const { username, password } = req.body;
   
     try {
       const user = await User.findOne({ where: { username } });
-      console.log(user);
       if (!user) {
         return res.status(422).json({
           message: "Incorrect username or password",
@@ -57,7 +58,6 @@ router.get("/user/:id", async (req, res) => {
       }
   
       const match = await bcrypt.compare(password, user.password);
-      console.log(match);
       if (!match) {
         return res.status(422).json({
           message: "Incorrect username or password",
@@ -107,30 +107,69 @@ router.post("/user", async (req, res) => {
   });
 
 
-
-  router.put("/posts/:postId", async (req, res) => {
+  router.put("/users/follow", async (req, res) => {
+    const {id, number} = req.body;
     try {
-      const post = await Post.findByPk(req.params.postId);
-      if (!post) {
-        return res.status(404).json({
-          message: "Post not found",
-        });
+      const user = await User.findByPk(number);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
       }
-      post.title = req.body.title;
-      post.content = req.body.content;
-      post.likes = req.body.likes;
-      await post.save();
-      return res.json({
-        message: "Post updated successfully",
-        result: post,
-      });
+      if (user.followed.includes(id)) {
+        user.followed = user.followed.filter(u => u !== id);
+        await user.update({ followed: user.followed });
+        return res.json({ message: "Unfollowed" });
+      } else {
+      const followedArray = [...user.followed, id];
+      await user.update({ followed: followedArray });
+      return res.json({ message: "Followed" });
+      }
     } catch (error) {
       console.error(error);
-      return res.status(500).json({
-        message: "Failed to update post",
-      });
+      return res.status(500).json({ message: "Internal server error" });
     }
   });
+  // router.put("/users/like", async (req, res) => {
+  //   const { id, number } = req.body;
+  //   try {
+  //     const user = await User.findByPk(id);
+  //     const post = await Post.findByPk(number);
+  
+  //     if (!post) {
+  //       return res.status(404).json({ message: "Post not found" });
+  //     }
+  
+  //     // Check if the post is already liked by the user
+  //     if (user.liked.includes(number)) {
+  //       // Remove the post ID from the liked array
+  //       user.liked = user.liked.filter((postId) => postId !== number);
+  
+  //       // Decrease the post's liked count
+  //       post.likes--;
+  
+  //       // Update the user and post
+  //       await user.save();
+  //       await post.save();
+  
+  //       return res.json({ message: "Post unliked" });
+  //     } else {
+  //       // Add the post ID to the liked array
+  //       user.liked.push(number);
+  
+  //       // Increase the post's liked count
+  //       post.likes++;
+  
+  //       // Update the user and post
+  //       await user.save();
+  //       await post.save();
+  
+  //       return res.json({ message: "Post liked" });
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     return res.status(500).json({ message: "Internal server error" });
+  //   }
+  // });
+  
 
   router.delete("/users", async (_, resp) => {
     await User.destroy({ where: {} });

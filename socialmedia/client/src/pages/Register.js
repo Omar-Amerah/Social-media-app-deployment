@@ -40,7 +40,6 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await RegisterUser(username, password, email);
-    console.log(data);
     if (data) {
       navigate("/login");
     }

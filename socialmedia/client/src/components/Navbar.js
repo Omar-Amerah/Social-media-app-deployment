@@ -39,7 +39,6 @@ export default function Navbar() {
 
   const handleCreatePost = (title, content) => {
     // Handle the creation of the post (e.g., make an API call)
-    console.log("Creating post:", title, content);
   };
 
   const handleLogout = () => {

@@ -45,6 +45,7 @@ export default function Discover() {
         <div>
           <h2>Name: {user.username}</h2>
           <h2>Email: {user.email}</h2>
+          <h2>Following: {user.followed}</h2>
         </div>
       )}
       <Posts />
