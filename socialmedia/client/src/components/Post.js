@@ -6,7 +6,8 @@ import DeletePost from "./utils/posts/DeletePost";
 import GetOneUser from "./utils/users/GetOneUser";
 import FollowUser from "./utils/users/FollowUser";
 import FollowedPosts from "./utils/posts/FollowedPosts";
-import LikeUser from "./utils/users/LikePost";
+import LikePost from "./utils/users/LikePost";
+import EditPostBox from "./Editpost";
 
 function cookies() {
   const string = decodeURIComponent(document.cookie);
@@ -22,6 +23,7 @@ function cookies() {
 
 export default function Posts({ type }) {
   const [posts, setPosts] = React.useState([]);
+  const [showEditPost, setShowEditPost] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [username, setUsername] = React.useState("");
   const [followedUsers, setFollowedUsers] = React.useState([]);
@@ -66,48 +68,55 @@ export default function Posts({ type }) {
     window.location.reload();
   }
 
+  async function handleEditClick(event) {
+    event.stopPropagation(); 
+    setShowEditPost(true);
+    document.body.classList.add("overlay-active"); 
+  }
+
+  const handleCloseEditPost = () => {
+    setShowEditPost(false);
+    document.body.classList.remove("overlay-active");
+  };
+ 
   function handleCloseClick() {
     document.body.classList.remove("lock-scrolling");
     setSelectedPost(null);
   }
 
-  async function handleLikeClick(event, UserId) {
+  async function handleLikeClick(event, PostId) {
     event.stopPropagation(); 
-    await LikeUser(UserId, cookies())
+    await LikePost(cookies(), PostId)
+    window.location.reload()
   }
 
   async function handleFollowClick(event, UserId) {
     event.stopPropagation();
-    if (followedUsers.includes(UserId)) {
-      // Unfollow the user
-      await FollowUser(UserId, cookies());
-    } else {
-      // Follow the user
-      await FollowUser(UserId, cookies());
-    }
-    // Update the followed users array
+    await FollowUser(UserId, cookies());
     const updatedFollowedUsers = (await GetOneUser(cookies())).followed;
     setFollowedUsers(updatedFollowedUsers);
   }
 
   if (!posts || posts.length === 0) {
-    // Render an alternative UI or display a message when no posts are found
     return null;
   }
 
   return (
     <div>
-      {selectedPost && (
-        <div className={`post selected`}>
-          <h2 className="title">{selectedPost.title}</h2>
-          {(type === "Discover" || type === "Home") && (
-            <p className="creator">Creator: {selectedPost.UserId}</p>
-          )}
+     {selectedPost && (
+  <div className={`post selected`}>
+    <h2 className="title">{selectedPost.title}</h2>
+    {(type === "Discover" || type === "Home") && (
+      <React.Fragment>
+        <p className="creator">Creator: {selectedPost.UserId}</p>
+        <p className="creator">Likes: {selectedPost.likes}</p>
+      </React.Fragment>
+    )}
           <p className="content">{selectedPost.content}</p>
           <p className="date">Date: {selectedPost.postdate}</p>
           {(type === "Discover" || type === "Home") && (
             <div className="actions">
-              <button className="like" onClick={(event) => handleLikeClick(event, selectedPost.UserId)}>
+              <button className="like" onClick={(event) => handleLikeClick(event, selectedPost.id)}>
                 Like
               </button>
               <button
@@ -119,12 +128,30 @@ export default function Posts({ type }) {
             </div>
           )}
           {type !== "Discover" && type !== "Home" && (
+            <React.Fragment>
             <button
               className="delete"
               onClick={(event) => handleDeleteClick(event, selectedPost.id)}
             >
               Delete
             </button>
+            <button
+            className="edit"
+            onClick={(event) => handleEditClick(event, selectedPost.id)}
+            
+          >
+            Edit
+          </button>
+          {showEditPost && (
+        <>
+          
+          <EditPostBox
+            onClose={handleCloseEditPost}
+          />
+          <div className="overlay" />
+        </>
+      )}
+          </React.Fragment>
           )}
           <button className="close" onClick={handleCloseClick}>
             Close
@@ -144,15 +171,19 @@ export default function Posts({ type }) {
             >
               <h2 className="title">{post.title}</h2>
               {(type === "Discover" || type === "Home") && (
+                <React.Fragment>
                 <p className="creator">Creator: {post.UserId}</p>
+                <p className="creator">Likes: {post.likes}</p>
+                </React.Fragment>
+                
               )}
               <p className="content">{post.content}</p>
               <p className="date">{post.postdate}</p>
               {(type === "Discover" || type === "Home") && (
                 <div className="actions">
-                  <button className="like" onClick={handleLikeClick}>
+                  {/* <button className="like" onClick={(event) => handleLikeClick(event, selectedPost.id)}>
                     Like
-                  </button>
+                  </button> */}
                   <button
                     className={`follow ${followedUsers.includes(post.UserId) ? "unfollow" : ""}`}
                     onClick={(event) => handleFollowClick(event, post.UserId)}
@@ -162,12 +193,29 @@ export default function Posts({ type }) {
                 </div>
               )}
               {type !== "Discover" && type !== "Home" && (
+                <React.Fragment>
                 <button
                   className="delete"
                   onClick={(event) => handleDeleteClick(event, post.id)}
                 >
                   Delete
                 </button>
+                <button
+                className="edit"
+                onClick={(event) => handleEditClick(event, post.id)}
+              >
+                Edit
+              </button>
+              {showEditPost && (
+        <>
+           
+          <EditPostBox
+            onClose={handleCloseEditPost}
+          />
+          <div className="overlay" />
+        </>
+      )}
+              </React.Fragment>
               )}
             </div>
           );

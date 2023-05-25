@@ -26,10 +26,10 @@ User.init(
       type: DataTypes.JSONB,
       defaultValue: [],
     },
-    // liked: {
-    //   type: DataTypes.JSONB,
-    //   defaultValue: [],
-    // },
+    liked: {
+      type: DataTypes.JSONB,
+      defaultValue: [],
+    },
   },
   {
     sequelize: db,

@@ -27,8 +27,7 @@
   box-sizing: border-box;
 }
 
-/* Rest of the CSS remains the same */
-
+ 
 .create-post-box .close-button,
 .create-post-box .create-button {
   display: inline-block;

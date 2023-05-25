@@ -37,9 +37,6 @@ export default function Navbar() {
     document.body.classList.remove("overlay-active");
   };
 
-  const handleCreatePost = (title, content) => {
-    // Handle the creation of the post (e.g., make an API call)
-  };
 
   const handleLogout = () => {
     ClearCookies();
@@ -102,7 +99,6 @@ export default function Navbar() {
           
           <CreatePostBox
             onClose={handleCloseCreatePost}
-            onCreate={handleCreatePost}
           />
           <div className="overlay" />
         </>

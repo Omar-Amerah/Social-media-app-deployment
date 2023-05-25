@@ -36,8 +36,7 @@ router.get("/posts/followed/:id", async (req, res) => {
   }
 });
 
-
-
+ 
 router.get("/posts/:id", async (req, res) => {
     try {
       const post = await Post.findByPk(req.params.id);
@@ -108,7 +107,6 @@ router.post("/posts", async (req, res) => {
       }
       post.title = req.body.title;
       post.content = req.body.content;
-      post.likes = req.body.likes;
       await post.save();
       return res.json({
         message: "Post updated successfully",

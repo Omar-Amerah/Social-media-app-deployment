@@ -1,14 +1,14 @@
-export default async function LikeUser(id, postid) {
+export default async function LikePost(userid, postid) {
     try {
       const response = await fetch(`http://localhost:5001/users/like`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          id: id,
-          number: postid,
+          postId: postid,
+          userId: userid,
         })
       });
-  
+    
       const data = await response.json();
       if (response.ok) {
         //alert("Followed");

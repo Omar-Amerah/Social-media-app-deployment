@@ -15,7 +15,7 @@
   border-radius: 20px;
   background-color: #c0d2ce;
   color: #333;
-  height: 40vh;
+  height: 50vh;
   font-family: Arial;
   margin: 30px;
   margin-left: 15vw;
@@ -132,6 +132,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s; /* Transition effect for background color */
+  align-self: center;
 }
 
 .delete:hover {
@@ -149,9 +150,24 @@
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .like:hover {
   background-color: #38578a;
+}
+
+.edit {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #c631a8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit:hover {
+  background-color: #c631a8;
 }
 
 /* Styles for follow button */
@@ -169,4 +185,58 @@
 
 .follow:hover {
   background-color: #1665c1;
+}
+
+/* Media query for screen sizes up to 768px */
+@media only screen and (max-width: 768px) {
+
+
+  .post .title {
+    /* Add styles to limit width and adjust margins for smaller screens */
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .post .content {
+    /* Add styles to limit width and adjust margins for smaller screens */
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .post .actions {
+    /* Adjust positioning of the follow button for smaller screens */
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .post .follow {
+    /* Add styles to adjust button width and prevent overlap */
+    width: 80%;
+  }
+}
+
+/* Media query for screen sizes up to 576px */
+@media only screen and (max-width: 576px) {
+
+  .post .title {
+    /* Add styles to limit width and adjust margins for smaller screens */
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .post .content {
+    /* Add styles to limit width and adjust margins for smaller screens */
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

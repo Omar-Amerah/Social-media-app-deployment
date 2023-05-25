@@ -106,7 +106,7 @@ router.post("/user", async (req, res) => {
     }
   });
 
-
+ 
   router.put("/users/follow", async (req, res) => {
     const {id, number} = req.body;
     try {
@@ -128,48 +128,39 @@ router.post("/user", async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
   });
-  // router.put("/users/like", async (req, res) => {
-  //   const { id, number } = req.body;
-  //   try {
-  //     const user = await User.findByPk(id);
-  //     const post = await Post.findByPk(number);
+ 
+  router.put("/users/like", async (req, res) => {
+    const { postId, userId } = req.body;
+    console.log(postId, userId)
+    try {
+      const post = await Post.findByPk(postId);
+      const user = await User.findByPk(userId);
   
-  //     if (!post) {
-  //       return res.status(404).json({ message: "Post not found" });
-  //     }
+      if (!post || !user) {
+        return res.status(404).json({ message: "Post or user not found" });
+      }
+      console.log(user.liked)
+      if (user.liked.includes(postId)) {
+        user.liked = user.liked.filter(u => u !== postId);
+        await user.update({ liked: user.liked });
+        post.likes--;
+        await post.update({ likes: post.likes });
+        return res.json({ message: "Unliked" });
+      }
   
-  //     // Check if the post is already liked by the user
-  //     if (user.liked.includes(number)) {
-  //       // Remove the post ID from the liked array
-  //       user.liked = user.liked.filter((postId) => postId !== number);
+      //user.liked.push(postId);
+      const likedArray = [...user.liked, postId]
+      await user.update({ liked: likedArray });
+      post.likes++;
+      await post.update({ likes: post.likes });
   
-  //       // Decrease the post's liked count
-  //       post.likes--;
-  
-  //       // Update the user and post
-  //       await user.save();
-  //       await post.save();
-  
-  //       return res.json({ message: "Post unliked" });
-  //     } else {
-  //       // Add the post ID to the liked array
-  //       user.liked.push(number);
-  
-  //       // Increase the post's liked count
-  //       post.likes++;
-  
-  //       // Update the user and post
-  //       await user.save();
-  //       await post.save();
-  
-  //       return res.json({ message: "Post liked" });
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     return res.status(500).json({ message: "Internal server error" });
-  //   }
-  // });
-  
+      return res.json({ message: "Post liked" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
 
   router.delete("/users", async (_, resp) => {
     await User.destroy({ where: {} });
