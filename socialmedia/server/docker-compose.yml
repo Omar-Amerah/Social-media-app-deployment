@@ -1,12 +1,10 @@
 version: '3'
 services:
-  database:
-    image: 'sqlite'
-    volumes:
-      - ./data:/data
+  web:
+    build: .
     ports:
-      - '5432:5432'
+      - "5001:5001"
+    volumes:
+      - ./db:/app/db  # Corrected volume mapping
     environment:
-      - POSTGRES_USER=ROOT_USER
-      - POSTGRES_PASSWORD=ROOT_USER
-      - POSTGRES_DB=posts
+      DATABASE_URL: sqlite:////app/db/db.sqlite3  # Corrected database URL

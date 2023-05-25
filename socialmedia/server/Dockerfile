@@ -1,7 +1,15 @@
-FROM node:18-alpine
+FROM node:lts-alpine
+
+RUN apk add --no-cache sqlite
+
 WORKDIR /home/node/app
-COPY package*.json .
-RUN npm ci --omit=dev
+
+COPY package*.json ./
+RUN npm ci --only=production
+
 COPY . .
+
 CMD ["npm", "start"]
-EXPOSE 3000
+
+EXPOSE 5001
+
