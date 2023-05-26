@@ -66,10 +66,11 @@ router.get("/user/:id", async (req, res) => {
         });
       }
       res.clearCookie("user")
+      console.log("Cleared old cookies")
       const userCookie = { id: user.id, name: user.name };
       const userCookieString = JSON.stringify(userCookie);
       res.cookie("user", userCookieString);
-      console.log("Logged user in")
+      console.log(userCookieString)
       res.json({
         message: "Successfully logged in",
       });
