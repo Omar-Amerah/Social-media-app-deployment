@@ -66,13 +66,13 @@ router.get("/user/:id", async (req, res) => {
         });
       }
   
-      res.clearCookie("user", { domain: "6470a42ccabb330edcce6a5c--reliable-salamander-5c0bf7.netlify.app", path: "/" });
+      res.clearCookie("user");
       console.log("Cleared old cookies");
   
       const userCookie = { id: user.id, name: user.name };
       const userCookieString = JSON.stringify(userCookie);
-      
-      res.cookie("user", userCookieString, { domain: "6470a42ccabb330edcce6a5c--reliable-salamander-5c0bf7.netlify.app", path: "/" });
+  
+      res.cookie("user", userCookieString);
       console.log(userCookieString);
   
       res.json({
@@ -85,6 +85,7 @@ router.get("/user/:id", async (req, res) => {
       });
     }
   });
+  
   
   
   
