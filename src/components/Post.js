@@ -57,7 +57,7 @@ export default function Posts({ type }) {
     document.body.classList.remove("lock-scrolling");
     event.stopPropagation(); // Stop event propagation
     await DeletePost(id);
-    //window.location.reload();
+    window.location.reload();
   }
 
   async function handleEditClick(event) {
@@ -79,7 +79,7 @@ export default function Posts({ type }) {
   async function handleLikeClick(event, PostId) {
     event.stopPropagation(); 
     await LikePost(cookies(), PostId)
-    //window.location.reload()
+    window.location.reload()
   }
 
   async function handleFollowClick(event, UserId) {
