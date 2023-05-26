@@ -72,7 +72,7 @@ router.get("/user/:id", async (req, res) => {
       const userCookie = { id: user.id, name: user.name };
       const userCookieString = JSON.stringify(userCookie);
   
-      res.cookie("user", userCookieString);
+      
       console.log(userCookieString);
   
       res.send(userCookieString);
