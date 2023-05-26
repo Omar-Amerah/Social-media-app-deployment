@@ -35,6 +35,7 @@ export default function Posts({ type }) {
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
       } else if (type === "Home") {
+        console.log(cookies())
         const userId = cookies(); // Retrieve the user ID from cookies
         response = await FollowedPosts(userId);
         const followedUsers = (await GetOneUser(cookies())).followed;
