@@ -20,5 +20,9 @@
     "sequelize-json": "^2.1.2",
     "sqlite3": "^5.1.6",
     "yarn": "^1.22.19"
+  },
+  "engines": {
+    "node": "16.14"
   }
+
 }
