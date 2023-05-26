@@ -39,7 +39,7 @@ export default function CreatePostBox({ onClose, onCreate }) {
       setTitle("");
       setContent("");
       onClose();
-      window.location.reload(); 
+      //window.location.reload(); 
     }
   };
 

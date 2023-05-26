@@ -27,7 +27,7 @@ export default function EditPostBox({ onClose, onCreate }, postid) {
       setTitle("");
       setContent("");
       onClose();
-      window.location.reload(); 
+      //.location.reload(); 
     }
   };
 
