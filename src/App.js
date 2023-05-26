@@ -9,11 +9,11 @@ import Register from "./pages/Register";
 function App() {
   return (
     <Routes>
-      <Route path="/home" element={<Home />} />
-      <Route path="/discover" element={<Discover />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="socialmedia/home" element={<Home />} />
+      <Route path="socialmedia/discover" element={<Discover />} />
+      <Route path="socialmedia/profile" element={<Profile />} />
+      <Route path="socialmedia/login" element={<Login />} />
+      <Route path="socialmedia/register" element={<Register />} />
     </Routes>
   );
 }
