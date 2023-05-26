@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get("/posts", async (_, resp) => {
    const data = await Post.findAll()
+   console.log("Fetched All Posts")
     resp.json({
         message: "Successfully fetched all posts",
         result: data,
@@ -21,6 +22,7 @@ router.get("/posts/followed/:id", async (req, res) => {
   try {
     const user = await User.findByPk(userId);
     if (!user) {
+      console.log("User not found")
       return res.status(404).json({ message: "User not found" });
     }
     const followedUsers = user.followed;
@@ -41,17 +43,19 @@ router.get("/posts/:id", async (req, res) => {
     try {
       const post = await Post.findByPk(req.params.id);
       if (!post) {
+        console.log("Post not found")
         res.status(404).json({
           message: "Post not found",
         });
       } else {
+        console.log("Successfully retrieved post")
         res.json({
           message: "Successfully retrieved post",
           result: post,
         });
       }
     } catch (error) {
-      console.error(error);
+      console.log("Error retrieving post")
       res.status(500).json({
         message: "Error retrieving post",
       });
@@ -62,6 +66,7 @@ router.get("/posts/:id", async (req, res) => {
     try {
       const post = await Post.findAll({where: { UserId: req.params.id } });
       if (!post) {
+        console.log("Post not found")
         res.status(404).json({
           message: "Post not found",
         });
