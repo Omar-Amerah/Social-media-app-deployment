@@ -66,7 +66,7 @@ router.get("/user/:id", async (req, res) => {
         });
       }
   
-      res.clearCookie("user");
+      //res.clearCookie("user");
       console.log("Cleared old cookies");
   
       const userCookie = { id: user.id, name: user.name };
@@ -75,9 +75,7 @@ router.get("/user/:id", async (req, res) => {
       res.cookie("user", userCookieString);
       console.log(userCookieString);
   
-      res.json({
-        message: "Successfully logged in",
-      });
+      res.send(userCookieString);
     } catch (error) {
       console.error(error);
       res.status(500).json({
