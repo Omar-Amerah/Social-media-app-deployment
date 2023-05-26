@@ -13,13 +13,13 @@ export default function Navbar() {
 
   React.useEffect(() => {
     switch (location.pathname) {
-      case "/home":
+      case "./home":
         setActiveButton("Home");
         break;
-      case "/discover":
+      case "./discover":
         setActiveButton("Discover");
         break;
-      case "/profile":
+      case "./profile":
         setActiveButton("Profile");
         break;
       default:
