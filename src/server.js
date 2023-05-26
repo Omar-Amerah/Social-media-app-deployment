@@ -21,7 +21,7 @@ app.use(
 );
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Replace with the origin of your frontend app
+  origin: 'https://gh-pages--testhostserversocial.netlify.app',
   credentials: true,
 }));
 
