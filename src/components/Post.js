@@ -25,15 +25,7 @@ export default function Posts({ type }) {
   const [posts, setPosts] = React.useState([]);
   const [showEditPost, setShowEditPost] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState(null);
-  const [username, setUsername] = React.useState("");
   const [followedUsers, setFollowedUsers] = React.useState([]);
-
-  async function getUsername(UserId) {
-    const user = await GetOneUser(UserId);
-    const username = user.username;
-    setUsername(username);
-    return null;
-  }
 
   React.useEffect(() => {
     async function fetchData() {
@@ -49,7 +41,6 @@ export default function Posts({ type }) {
         setFollowedUsers(followedUsers);
       } else {
         response = await GetUserPosts(cookies());
-        response = response;
       }
       setPosts(response);
     }

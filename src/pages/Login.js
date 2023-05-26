@@ -43,7 +43,6 @@ export default function Login() {
     <>
       <div className="loginBox">
         <h1 className="title">Social Media</h1>
-        <h2></h2>
         <input
           type="text"
           className="input"
