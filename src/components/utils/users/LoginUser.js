@@ -12,6 +12,8 @@ export default async function LoginUser(username, password) {
   
       const data = await response.json();
       if (response.ok) {
+        document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = `user=${userCookieString}; path=/;`;
         //alert("Logged in");
         return true;
       } else {
