@@ -1,6 +1,6 @@
 export default async function LikePost(userid, postid) {
     try {
-      const response = await fetch(`http://localhost:5001/users/like`, {
+      const response = await fetch(`https://testhostserversocial.onrender.com/users/like`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

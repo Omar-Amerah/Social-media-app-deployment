@@ -1,6 +1,6 @@
 export default async function FollowedPosts(id) {
     try {
-        const response = await fetch(`http://localhost:5001/posts/followed/${id}`);
+        const response = await fetch(`https://testhostserversocial.onrender.com/posts/followed/${id}`);
         const data = await response.json();
         if (response.status === 200) {
             return data.posts;

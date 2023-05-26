@@ -1,6 +1,6 @@
 export default async function ClearCookies() {
     try {
-      const response = await fetch(`http://localhost:5001/clearcookies`, {
+      const response = await fetch(`https://testhostserversocial.onrender.com/clearcookies`, {
         credentials: 'include'
       });
       const data = await response.json();

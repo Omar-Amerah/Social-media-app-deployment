@@ -1,6 +1,6 @@
 export default async function GetOneUser(id) {
     try {
-        const response = await fetch(`http://localhost:5001/user/${id}`);
+        const response = await fetch(`https://testhostserversocial.onrender.com/user/${id}`);
         const data = await response.json();
         if (response.status === 200) {
             return data.result;

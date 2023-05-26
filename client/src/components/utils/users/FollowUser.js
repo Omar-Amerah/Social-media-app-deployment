@@ -1,6 +1,6 @@
 export default async function FollowUser(id, followid) {
     try {
-      const response = await fetch(`http://localhost:5001/users/follow`, {
+      const response = await fetch(`https://testhostserversocial.onrender.com/users/follow`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

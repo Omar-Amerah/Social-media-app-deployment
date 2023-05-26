@@ -1,6 +1,6 @@
 export default async function DeletePost(id) {
     try {
-        const response = await fetch(`http://localhost:5001/posts/${id}`, {
+        const response = await fetch(`https://testhostserversocial.onrender.com/posts/${id}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
         });
