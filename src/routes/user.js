@@ -65,12 +65,16 @@ router.get("/user/:id", async (req, res) => {
           message: "Incorrect username or password",
         });
       }
-      res.clearCookie("user")
-      console.log("Cleared old cookies")
+  
+      res.clearCookie("user", { domain: "6470a42ccabb330edcce6a5c--reliable-salamander-5c0bf7.netlify.app" });
+      console.log("Cleared old cookies");
+  
       const userCookie = { id: user.id, name: user.name };
       const userCookieString = JSON.stringify(userCookie);
-      res.cookie("user", userCookieString);
-      console.log(userCookieString)
+      
+      res.cookie("user", userCookieString, { domain: "6470a42ccabb330edcce6a5c--reliable-salamander-5c0bf7.netlify.app" });
+      console.log(userCookieString);
+  
       res.json({
         message: "Successfully logged in",
       });
@@ -81,6 +85,7 @@ router.get("/user/:id", async (req, res) => {
       });
     }
   });
+  
   
   
 
