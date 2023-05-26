@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Omar-Amerah.github.io/Social-media-app-deployment/static/css/main.8f77b749.css",
-    "main.js": "/Omar-Amerah.github.io/Social-media-app-deployment/static/js/main.5d40fdce.js",
+    "main.js": "/Omar-Amerah.github.io/Social-media-app-deployment/static/js/main.5841be23.js",
     "index.html": "/Omar-Amerah.github.io/Social-media-app-deployment/index.html",
     "main.8f77b749.css.map": "/Omar-Amerah.github.io/Social-media-app-deployment/static/css/main.8f77b749.css.map",
-    "main.5d40fdce.js.map": "/Omar-Amerah.github.io/Social-media-app-deployment/static/js/main.5d40fdce.js.map"
+    "main.5841be23.js.map": "/Omar-Amerah.github.io/Social-media-app-deployment/static/js/main.5841be23.js.map"
   },
   "entrypoints": [
     "static/css/main.8f77b749.css",
-    "static/js/main.5d40fdce.js"
+    "static/js/main.5841be23.js"
   ]
 }
