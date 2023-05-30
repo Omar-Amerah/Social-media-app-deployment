@@ -1,6 +1,6 @@
 const session = require('express-session');
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const sequelize = require("./db");
+const sequelize = require("./db/db");
 const express = require('express');
 const { postRouter, userRouter } = require('./routes/');
 const cookieParser = require('cookie-parser');
