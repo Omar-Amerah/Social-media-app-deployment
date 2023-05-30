@@ -4,6 +4,10 @@ const { postRouter, userRouter } = require('./routes/');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+const sessionStore = new SequelizeStore({
+  db: sequelize,
+});
+
 const app = express();
 
 app.use(cookieParser());
@@ -12,6 +16,7 @@ app.use(
     secret: process.env.SESSION_SECRET || 'Super Secret (change it)',
     resave: true,
     saveUninitialized: false,
+    store: sessionStore,
     cookie: {
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       secure: process.env.NODE_ENV === 'production',
