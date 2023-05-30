@@ -100,7 +100,7 @@ export default function Posts({ type }) {
     <h2 className="title">{selectedPost.title}</h2>
     {(type === "Discover" || type === "Home") && (
       <React.Fragment>
-        <p className="creator">Creator: {selectedPost.UserId}</p>
+        <p className="creator">Creator: {followedUsers.username}</p>
         <p className="creator">Likes: {selectedPost.likes}</p>
       </React.Fragment>
     )}
@@ -164,7 +164,7 @@ export default function Posts({ type }) {
               <h2 className="title">{post.title}</h2>
               {(type === "Discover" || type === "Home") && (
                 <React.Fragment>
-                <p className="creator">Creator: {post.UserId}</p>
+                <p className="creator">Creator: {followedUsers.username}</p>
                 <p className="creator">Likes: {post.likes}</p>
                 </React.Fragment>
                 

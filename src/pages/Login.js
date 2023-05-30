@@ -4,11 +4,12 @@ import "../assets/login.css";
 import LoginUser from "../components/utils/users/LoginUser.js";
 
 export default function Login() {
+  document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [formValid, setFormValid] = useState(false);
-
+ 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
     if (e.target.value && password) {
