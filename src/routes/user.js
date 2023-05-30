@@ -66,14 +66,8 @@ router.get("/user/:id", async (req, res) => {
         });
       }
   
-      //res.clearCookie("user");
-      console.log("Cleared old cookies");
-  
       const userCookie = { id: user.id, name: user.name };
       const userCookieString = JSON.stringify(userCookie);
-  
-      
-      console.log(userCookieString);
   
       res.send(userCookieString);
     } catch (error) {
