@@ -4,7 +4,7 @@ import "../assets/register.css";
 import RegisterUser from "../components/utils/users/RegisterUser.js";
 
 export default function Register() {
-  document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
