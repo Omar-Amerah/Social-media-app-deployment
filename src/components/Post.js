@@ -26,6 +26,7 @@ export default function Posts({ type }) {
   const [showEditPost, setShowEditPost] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [followedUsers, setFollowedUsers] = React.useState([]);
+  const [postUsernames, setPostUsernames] = React.useState([]);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -34,12 +35,16 @@ export default function Posts({ type }) {
         response = await GetAllPosts();
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
+        const postUsernames = (await GetOneUser(cookies())).username;
+        setPostUsernames(postUsernames);
       } else if (type === "Home") {
         console.log(cookies())
         const userId = cookies(); // Retrieve the user ID from cookies
         response = await FollowedPosts(userId);
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
+        const postUsernames = (await GetOneUser(cookies())).username;
+        setPostUsernames(postUsernames);
       } else {
         response = await GetUserPosts(cookies());
       }
@@ -106,8 +111,7 @@ export default function Posts({ type }) {
           {(type === "Discover" || type === "Home") && (
             <React.Fragment>
               <p className="creator">
-                Creator:{" "}
-                {followedUsers.find((user) => user.id === selectedPost.UserId)?.username}
+                Creator:{postUsernames}
               </p>
               <p className="creator">Likes: {selectedPost.likes}</p>
             </React.Fragment>
@@ -174,8 +178,7 @@ export default function Posts({ type }) {
               {(type === "Discover" || type === "Home") && (
                 <React.Fragment>
                   <p className="creator">
-                    Creator:{" "}
-                    {followedUsers.find((user) => user.id === post.UserId)?.username}
+                    Creator:{postUsernames}
                   </p>
                   <p className="creator">Likes: {post.likes}</p>
                 </React.Fragment>
