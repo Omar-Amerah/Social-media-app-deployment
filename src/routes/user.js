@@ -89,7 +89,7 @@ router.post("/user", async (req, res) => {
         if(!/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/.test(password))
         {
             return res.status(500).json({
-                message: "Password must be more than 8 characters and contain a capital letter, special number and a number",
+                message: "Password must be more than 8 characters and contain a capital letter, a special character and a number",
               });
         }
 
@@ -102,7 +102,7 @@ router.post("/user", async (req, res) => {
     } catch (error) {
       console.error(error);
       res.status(500).json({
-        message: "Error creating user",
+        message: "Username or Email still in use",
       });
     }
   });
