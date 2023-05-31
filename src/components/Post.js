@@ -21,11 +21,22 @@ function cookies() {
   return null;
 }
 
+
+
+
 export default function Posts({ type }) {
   const [posts, setPosts] = React.useState([]);
   const [showEditPost, setShowEditPost] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [followedUsers, setFollowedUsers] = React.useState([]);
+  const [postUsernames, setPostUsernames] = React.useState([]);
+
+  async function getUsername(userId) {
+    const user = await GetOneUser(userId);
+    const username = user.username;
+    return username;
+  }
+  
 
   React.useEffect(() => {
     async function fetchData() {
@@ -35,7 +46,6 @@ export default function Posts({ type }) {
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
       } else if (type === "Home") {
-        console.log(cookies())
         const userId = cookies(); // Retrieve the user ID from cookies
         response = await FollowedPosts(userId);
         const followedUsers = (await GetOneUser(cookies())).followed;
@@ -43,15 +53,13 @@ export default function Posts({ type }) {
       } else {
         response = await GetUserPosts(cookies());
       }
+      const usernames = await Promise.all(response.map((post) => getUsername(post.userId)));
+      setPostUsernames(usernames);
       setPosts(response);
     }
     fetchData();
   }, [type]);
 
-  async function fetchUsername(userId) {
-    const user = await GetOneUser(userId);
-    return user.username;
-  }
 
   function handlePostClick(post) {
     document.body.classList.add("lock-scrolling");
@@ -105,8 +113,7 @@ export default function Posts({ type }) {
           <h2 className="title">{selectedPost.title}</h2>
           {(type === "Discover" || type === "Home") && (
             <React.Fragment>
-              <p className="creator">
-                Creator:{followedUsers.find((user) => user.id === selectedPost.UserId)?.username}</p>
+              <p className="creator">Creator: {postUsernames[selectedPost.id]}</p>
               <p className="creator">Likes: {selectedPost.likes}</p>
             </React.Fragment>
           )}
@@ -171,7 +178,7 @@ export default function Posts({ type }) {
               <h2 className="title">{post.title}</h2>
               {(type === "Discover" || type === "Home") && (
                 <React.Fragment>
-                  <p className="creator">Creator:{followedUsers.find((user) => user.id === post.UserId)?.username}</p>
+                  <p className="creator">Creator:{postUsernames[post.id]}</p>
                   <p className="creator">Likes: {post.likes}</p>
                 </React.Fragment>
               )}
