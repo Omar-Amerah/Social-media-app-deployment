@@ -26,6 +26,16 @@
   min-width: 70%;
 }
 
+.content {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
 .post:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
@@ -51,6 +61,8 @@
 }
 
 .post.selected .title {
+  font-size: 40px;
+  font-weight: bold;
   margin-bottom: 30px;
 }
 
@@ -58,6 +70,8 @@
   margin-bottom: 50px;
   max-width: 100%;
   overflow-y: auto;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .overlay {
@@ -113,7 +127,7 @@
   margin-top: 16px;
   margin-right: 8px;
   padding: 8px;
-  background-color: #3c61b0;
+  background-color: #d91d49;
   color: white;
   border: none;
   border-radius: 4px;
@@ -122,14 +136,32 @@
 }
 
 .like:hover {
-  background-color: #38578a;
+  background-color: #9a1231;
 }
+
+.unlike {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #3c61b0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.unlike:hover {
+  background-color: #38578a;
+  
+}
+
 
 .edit {
   margin-top: 16px;
   margin-right: 8px;
   padding: 8px;
-  background-color: #c631a8;
+  background-color: #e4c31f;
   color: white;
   border: none;
   border-radius: 4px;
@@ -138,7 +170,7 @@
 }
 
 .edit:hover {
-  background-color: #c631a8;
+  background-color: #b59c1f;
 }
 
 .follow {
@@ -214,6 +246,8 @@
   }
 
   .post .title {
+    font-size: 40px;
+  font-weight: bold;
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -223,5 +257,7 @@
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
+    font-size: 18px;
+    font-weight: bold;
   }
 }

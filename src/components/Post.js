@@ -1,4 +1,5 @@
 import React from "react";
+import $ from "jquery";
 import "../assets/post.css";
 import GetAllPosts from "./utils/posts/GetAllPosts";
 import GetUserPosts from "./utils/posts/GetUserPosts";
@@ -52,14 +53,14 @@ export default function Posts({ type }) {
         response = await GetAllPosts();
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
-        const likedUsers = (await GetOneUser(cookies())).likes;
+        const likedUsers = (await GetOneUser(cookies())).liked;
         setLikedUsers(likedUsers);
       } else if (type === "Home") {
         const userId = cookies(); // Retrieve the user ID from cookies
         response = await FollowedPosts(userId);
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
-        const likedUsers = (await GetOneUser(cookies())).likes;
+        const likedUsers = (await GetOneUser(cookies())).liked;
         setLikedUsers(likedUsers);
       } else {
         response = await GetUserPosts(cookies());
@@ -93,12 +94,12 @@ export default function Posts({ type }) {
   async function handleEditClick(event) {
     event.stopPropagation();
     setShowEditPost(true);
-    document.body.classList.add("overlay-active");
+    document.body.classList.add("lock-scrolling");
   }
 
   const handleCloseEditPost = () => {
     setShowEditPost(false);
-    document.body.classList.remove("overlay-active");
+    document.body.classList.remove("lock-scrolling");
   };
 
   function handleCloseClick() {
@@ -111,7 +112,7 @@ export default function Posts({ type }) {
     await LikePost(cookies(), PostId);
     const updatedLikedUsers = (await GetOneUser(cookies())).likes;
     setLikedUsers(updatedLikedUsers);
-    window.location.reload();
+    window.location.reload()
   }
 
   async function handleFollowClick(event, UserId) {
@@ -133,19 +134,20 @@ export default function Posts({ type }) {
           {(type === "Discover" || type === "Home") && (
             <React.Fragment>
               <p className="creator">Creator: {postUsernames.find(([postId, username]) => postId === selectedPost.id)?.[1]}</p>
-              <p className="creator">Likes: {selectedPost.likes}</p>
+              <p id="liked" className="creator">Likes: {selectedPost.likes}</p>
             </React.Fragment>
           )}
           <p className="content">{selectedPost.content}</p>
           <p className="date">Date: {selectedPost.postdate}</p>
-          {(type === "Discover" || type === "Home") && (
+          {(type === "Discover" || type === "Home") && (selectedPost.UserId != cookies()) && (
             <div className="actions">
-              <button
-                className="like"
-                onClick={(event) => handleLikeClick(event, selectedPost.id)}
-              >
-                Like
-              </button>
+              <button className={`like ${
+                      likedUsers.includes(selectedPost.id) ? "unlike" : ""
+                    }`}
+                    onClick={(event) => handleLikeClick(event, selectedPost.id)}
+                  >
+                    {likedUsers.includes(selectedPost.id) ? "Unlike" : "Like"}
+                  </button>
               <button
                 className={`follow ${
                   followedUsers.includes(selectedPost.UserId) ? "unfollow" : ""
@@ -172,7 +174,7 @@ export default function Posts({ type }) {
               </button>
               {showEditPost && (
                 <>
-                  <EditPostBox onClose={handleCloseEditPost} />
+                  <EditPostBox onClose={handleCloseEditPost} postid={selectedPost.id} />
                   <div className="overlay" />
                 </>
               )}
@@ -198,21 +200,19 @@ export default function Posts({ type }) {
               {(type === "Discover" || type === "Home") && (
                 <React.Fragment>
                   <p className="creator">Creator: {postUsernames.find(([postId, username]) => postId === post.id)?.[1]}</p>
-
-
-                  <p className="creator">Likes: {post.likes}</p>
+                  <p id="liked" className="creator">Likes: {post.likes}</p>
                 </React.Fragment>
               )}
               <p className="content">{post.content}</p>
               <p className="date">{post.postdate}</p>
-              {(type === "Discover" || type === "Home") && (
+              {(type === "Discover" || type === "Home") && (post.UserId != cookies()) && (
                 <div className="actions">
                   <button className={`like ${
-                      likedUsers.includes(post.UserId) ? "unlike" : ""
+                      likedUsers.includes(post.id) ? "unlike" : ""
                     }`}
-                    onClick={(event) => handleLikeClick(event, post.UserId)}
+                    onClick={(event) => handleLikeClick(event, post.id)}
                   >
-                    {likedUsers.includes(post.UserId) ? "Unlike" : "Like"}
+                    {likedUsers.includes(post.id) ? "Unlike" : "Like"}
                   </button>
                   
                   <button
@@ -233,16 +233,9 @@ export default function Posts({ type }) {
                   >
                     Delete
                   </button>
-                  <button
-                    className="edit"
-                    onClick={(event) => handleEditClick(event, post.id)}
-                  >
-                    Edit
-                  </button>
                   {showEditPost && (
                     <>
                       <EditPostBox onClose={handleCloseEditPost} />
-                      <div className="overlay" />
                     </>
                   )}
                 </React.Fragment>

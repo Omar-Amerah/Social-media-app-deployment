@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/createpost.css";
 import EditPost from "./utils/posts/EditPost";
 
-export default function EditPostBox({ onClose, onCreate }, postid) {
+export default function EditPostBox({ onClose, onCreate, postid}) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -27,11 +27,11 @@ export default function EditPostBox({ onClose, onCreate }, postid) {
       setTitle("");
       setContent("");
       onClose();
-      //.location.reload(); 
+      window.location.reload(); 
     }
   };
 
-  const isButtonDisabled = !(title && content); // Disable the button if either title or content is empty
+  const isButtonDisabled = !(title.trim() && content.trim()); // Disable the button if either title or content is empty
 
   const handleClose = () => {
     onClose();

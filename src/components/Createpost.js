@@ -43,7 +43,7 @@ export default function CreatePostBox({ onClose, onCreate }) {
     }
   };
 
-  const isButtonDisabled = !(title && content); // Disable the button if either title or content is empty
+  const isButtonDisabled = !(title.trim() && content.trim()); // Disable the button if either title or content is empty
 
   const handleClose = () => {
     onClose();

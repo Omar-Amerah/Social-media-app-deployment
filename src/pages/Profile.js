@@ -21,6 +21,7 @@ function cookies() {
 export default function Discover() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  
 
   useEffect(() => {
     const userId = cookies();
