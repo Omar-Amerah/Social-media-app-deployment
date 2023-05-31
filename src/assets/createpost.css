@@ -11,6 +11,7 @@
   box-sizing: border-box;
   z-index: 9999;
   pointer-events: all;
+  border-radius: 15px;
 }
 
 .create-post-box h2 {
@@ -80,7 +81,7 @@
   cursor: not-allowed;
 }
 
-/* CSS to make the page unclickable */
+
 body.create-post-open {
   overflow: hidden;
 }

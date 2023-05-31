@@ -21,20 +21,27 @@ function cookies() {
   return null;
 }
 
-
-
-
 export default function Posts({ type }) {
   const [posts, setPosts] = React.useState([]);
   const [showEditPost, setShowEditPost] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [followedUsers, setFollowedUsers] = React.useState([]);
+  const [likedUsers, setLikedUsers] = React.useState([]);
   const [postUsernames, setPostUsernames] = React.useState([]);
 
   async function getUsername(userId) {
-    const user = await GetOneUser(userId);
-    const username = user.username;
-    return username;
+    try {
+      const user = await GetOneUser(userId);
+      if (user) {
+        const username = user.username;
+        return username;
+      } else {
+        throw new Error(`User with ID ${userId} not found`);
+      }
+    } catch (error) {
+      console.error(`Error fetching user: ${error.message}`);
+      return "Unknown";
+    }
   }
   
 
@@ -45,20 +52,30 @@ export default function Posts({ type }) {
         response = await GetAllPosts();
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
+        const likedUsers = (await GetOneUser(cookies())).likes;
+        setLikedUsers(likedUsers);
       } else if (type === "Home") {
         const userId = cookies(); // Retrieve the user ID from cookies
         response = await FollowedPosts(userId);
         const followedUsers = (await GetOneUser(cookies())).followed;
         setFollowedUsers(followedUsers);
+        const likedUsers = (await GetOneUser(cookies())).likes;
+        setLikedUsers(likedUsers);
       } else {
         response = await GetUserPosts(cookies());
       }
-      const usernames = await Promise.all(response.map((post) => getUsername(post.userId)));
+      const usernames = [];
+      for (const post of response) {
+        const username = await getUsername(post.UserId);
+        usernames.push([post.id, username]);
+      }
       setPostUsernames(usernames);
       setPosts(response);
     }
+
     fetchData();
   }, [type]);
+
 
 
   function handlePostClick(post) {
@@ -92,6 +109,8 @@ export default function Posts({ type }) {
   async function handleLikeClick(event, PostId) {
     event.stopPropagation();
     await LikePost(cookies(), PostId);
+    const updatedLikedUsers = (await GetOneUser(cookies())).likes;
+    setLikedUsers(updatedLikedUsers);
     window.location.reload();
   }
 
@@ -113,7 +132,7 @@ export default function Posts({ type }) {
           <h2 className="title">{selectedPost.title}</h2>
           {(type === "Discover" || type === "Home") && (
             <React.Fragment>
-              <p className="creator">Creator: {postUsernames[selectedPost.id]}</p>
+              <p className="creator">Creator: {postUsernames.find(([postId, username]) => postId === selectedPost.id)?.[1]}</p>
               <p className="creator">Likes: {selectedPost.likes}</p>
             </React.Fragment>
           )}
@@ -178,7 +197,9 @@ export default function Posts({ type }) {
               <h2 className="title">{post.title}</h2>
               {(type === "Discover" || type === "Home") && (
                 <React.Fragment>
-                  <p className="creator">Creator:{postUsernames[post.id]}</p>
+                  <p className="creator">Creator: {postUsernames.find(([postId, username]) => postId === post.id)?.[1]}</p>
+
+
                   <p className="creator">Likes: {post.likes}</p>
                 </React.Fragment>
               )}
@@ -186,9 +207,14 @@ export default function Posts({ type }) {
               <p className="date">{post.postdate}</p>
               {(type === "Discover" || type === "Home") && (
                 <div className="actions">
-                  {/* <button className="like" onClick={(event) => handleLikeClick(event, selectedPost.id)}>
-                    Like
-                  </button> */}
+                  <button className={`like ${
+                      likedUsers.includes(post.UserId) ? "unlike" : ""
+                    }`}
+                    onClick={(event) => handleLikeClick(event, post.UserId)}
+                  >
+                    {likedUsers.includes(post.UserId) ? "Unlike" : "Like"}
+                  </button>
+                  
                   <button
                     className={`follow ${
                       followedUsers.includes(post.UserId) ? "unfollow" : ""
