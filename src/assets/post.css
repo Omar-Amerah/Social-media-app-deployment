@@ -1,0 +1,263 @@
+.post-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  overflow: hidden;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #c0d2ce;
+  color: #333;
+  height: 50vh;
+  font-family: Arial;
+  margin: 30px;
+  margin-left: 15vw;
+  margin-right: 15vw;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  min-width: 70%;
+}
+
+.content {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.post:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.post.selected {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 60vw;
+  height: 60vh;
+  z-index: 1;
+  border-radius: 30px;
+  margin: 0;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%) scale(1.05);
+  cursor: auto;
+}
+
+.post.selected:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.post.selected .title {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.post.selected .content {
+  margin-bottom: 50px;
+  max-width: 100%;
+  overflow-y: auto;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.close {
+  margin-top: 16px;
+  padding: 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.close:hover {
+  background-color: #4e9b51;
+}
+
+.delete {
+  margin-top: 16px;
+  padding: 8px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: center;
+}
+
+.delete:hover {
+  background-color: #d32f2f;
+}
+
+.like {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #d91d49;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.like:hover {
+  background-color: #9a1231;
+}
+
+.unlike {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #3c61b0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.unlike:hover {
+  background-color: #38578a;
+  
+}
+
+
+.edit {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #e4c31f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit:hover {
+  background-color: #b59c1f;
+}
+
+.follow {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.follow:hover {
+  background-color: #1665c1;
+}
+
+.unfollow {
+  margin-top: 16px;
+  margin-right: 8px;
+  padding: 8px;
+  background-color: #d518f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.unfollow:hover {
+  background-color: #871399;
+}
+
+.date {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #686767;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.post:hover .date {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .post {
+    height: 40vh;
+    margin: 10px;
+  }
+
+  .post.selected {
+    padding: 10px;
+    width: 90vw;
+    height: 80vh;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .post {
+    height: 60vh;
+    margin: 10px;
+  }
+
+  .post.selected {
+    padding: 10px;
+    width: 90vw;
+    height: 80vh;
+  }
+
+  .post .title {
+    font-size: 40px;
+  font-weight: bold;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .post .content {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
