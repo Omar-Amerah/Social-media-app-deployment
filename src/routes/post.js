@@ -6,7 +6,10 @@ const moment = require('moment');
 const router = express.Router();
 
 router.get("/posts", async (_, resp) => {
-   const data = await Post.findAll()
+   const data = await Post.findAll({order: [
+    ['id', 'DESC']
+],})
+
    console.log("Fetched All Posts")
     resp.json({
         message: "Successfully fetched all posts",
