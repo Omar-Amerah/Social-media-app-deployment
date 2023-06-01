@@ -13,7 +13,7 @@ export default function Register() {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    if (e.target.value && password && email) {
+    if (e.target.value.trim() && password.trim() && email.trim()) {
       setFormValid(true);
     } else {
       setFormValid(false);
@@ -22,7 +22,7 @@ export default function Register() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    if (e.target.value && username && email) {
+    if (e.target.value.trim() && username.trim() && email.trim()) {
       setFormValid(true);
     } else {
       setFormValid(false);
@@ -31,7 +31,7 @@ export default function Register() {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    if (e.target.value && username && password) {
+    if (e.target.value.trim() && username.trim() && password.trim()) {
       setFormValid(true);
     } else {
       setFormValid(false);

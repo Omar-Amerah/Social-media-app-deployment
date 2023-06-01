@@ -12,7 +12,7 @@ export default function Login() {
  
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    if (e.target.value && password) {
+    if (e.target.value.trim() && password.trim()) {
       setFormValid(true);
     } else {
       setFormValid(false);
@@ -21,7 +21,7 @@ export default function Login() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    if (e.target.value && username) {
+    if (e.target.value.trim() && username.trim()) {
       setFormValid(true);
     } else {
       setFormValid(false);
